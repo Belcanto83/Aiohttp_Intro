@@ -1,0 +1,7 @@
+aiohttp
+aiohttp[speedups]
+asyncpg
+SQLAlchemy
+python-dotenv
+bcrypt
+pydantic
