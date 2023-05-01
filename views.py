@@ -29,6 +29,20 @@ async def login(request: web.Request):
     )
 
 
+async def get_users(request: web.Request):
+    response = web.StreamResponse()
+    await response.prepare(request)
+    query = select(User)
+    users = await request['session'].execute(query)
+    for user in users.scalars():
+        await response.write(json.dumps(
+            {'user_id': user.id,
+             'username': user.username}
+        ).encode()
+                             )
+    return response
+
+
 class UserView(web.View):
     async def _get_item(self, user_id: int):
         user = await self.request['session'].get(User, user_id)

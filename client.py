@@ -14,6 +14,11 @@ async def get_data():
             json_data = await response.json()
             print(json_data)
 
+        async with session.get('http://127.0.0.1:8081/users') as response:
+            print(response.status)
+            async for user in response.content:
+                print(user.decode())
+
         async with session.get('http://127.0.0.1:8081/advertisements/11') as response:
             print(response.status)
             json_data = await response.json()
